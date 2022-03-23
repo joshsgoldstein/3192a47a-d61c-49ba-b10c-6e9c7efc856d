@@ -52,7 +52,7 @@
                             "io.seldon.serving.manu-run-drift1",
                             "DriftDetector",
                             "--drift_batch_size",
-                            "1000"
+                            "2"
                         ],
                         "ports": [
                             {
