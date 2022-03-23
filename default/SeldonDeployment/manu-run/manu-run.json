@@ -6,7 +6,7 @@
         "namespace": "default",
         "creationTimestamp": null,
         "labels": {
-            "app.kubernetes.io/instance": "3192a47a-d61c-49ba-b10c-6e9c7efc856d-default"
+            "fluentd": "true"
         }
     },
     "spec": {
@@ -73,6 +73,40 @@
                         "start_label": "1"
                     }
                 }
+            },
+            {
+                "name": "shadow",
+                "graph": {
+                    "name": "manu-run-container",
+                    "implementation": "TENSORFLOW_SERVER",
+                    "modelUri": "gs://tom-seldon-examples/workshops/manufacturing/josh/simple-cnn/",
+                    "logger": {
+                        "mode": "all"
+                    }
+                },
+                "componentSpecs": [
+                    {
+                        "metadata": {
+                            "creationTimestamp": "2022-03-23T13:53:58Z"
+                        },
+                        "spec": {
+                            "containers": [
+                                {
+                                    "name": "manu-run-container",
+                                    "resources": {}
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "replicas": 1,
+                "annotations": {
+                    "project.seldon.io/manu-run-container": "default",
+                    "seldon.io/canary": "false"
+                },
+                "engineResources": {},
+                "svcOrchSpec": {},
+                "shadow": true
             }
         ],
         "protocol": "seldon"
