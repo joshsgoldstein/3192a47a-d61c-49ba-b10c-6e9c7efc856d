@@ -6,7 +6,6 @@
         "namespace": "default",
         "creationTimestamp": null,
         "labels": {
-            "app.kubernetes.io/instance": "3192a47a-d61c-49ba-b10c-6e9c7efc856d-default",
             "fluentd": "true"
         }
     },
@@ -44,7 +43,7 @@
                 },
                 "engineResources": {},
                 "svcOrchSpec": {},
-                "traffic": 100,
+                "traffic": 50,
                 "explainer": {
                     "type": "AnchorTabular",
                     "modelUri": "gs://seldon-models/alibi/iris_anchor_tabular_explainer_v2",
@@ -53,6 +52,40 @@
                         "resources": {}
                     }
                 }
+            },
+            {
+                "name": "canary",
+                "graph": {
+                    "name": "test-dry-container",
+                    "implementation": "XGBOOST_SERVER",
+                    "modelUri": "gs://seldon-models/xgboost/iris",
+                    "logger": {
+                        "mode": "all"
+                    }
+                },
+                "componentSpecs": [
+                    {
+                        "metadata": {
+                            "creationTimestamp": "2022-03-30T12:45:28Z"
+                        },
+                        "spec": {
+                            "containers": [
+                                {
+                                    "name": "test-dry-container",
+                                    "resources": {}
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "replicas": 1,
+                "annotations": {
+                    "project.seldon.io/test-dry-container": "default",
+                    "seldon.io/canary": "true"
+                },
+                "engineResources": {},
+                "svcOrchSpec": {},
+                "traffic": 50
             }
         ],
         "annotations": {
